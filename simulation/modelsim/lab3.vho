@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus Prime"
 -- VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
--- DATE "01/16/2024 13:32:27"
+-- DATE "01/16/2024 15:11:37"
 
 -- 
 -- Device: Altera 10M50DAF484C7G Package FBGA484
@@ -3014,14 +3014,14 @@ SIGNAL \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jt
 SIGNAL \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|instrumentation_fabric|alt_sld_fab|sldfabric|jtag_hub_gen:real_sld_jtag_hub|mixer_addr_reg_internal\ : std_logic_vector(4 DOWNTO 0);
 SIGNAL \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|instrumentation_fabric|alt_sld_fab|sldfabric|jtag_hub_gen:real_sld_jtag_hub|virtual_ir_tdo_sel_reg\ : std_logic_vector(1 DOWNTO 0);
 SIGNAL \u0|nios2_gen2_0|cpu|ALT_INV_D_iw\ : std_logic_vector(2 DOWNTO 2);
+SIGNAL \u0|nios2_gen2_0|cpu|ALT_INV_av_ld_rshift8~1_combout\ : std_logic;
+SIGNAL \u0|rst_controller|ALT_INV_r_early_rst~q\ : std_logic;
+SIGNAL \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ALT_INV_ociram_wr_en~1_combout\ : std_logic;
 SIGNAL \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_debug_slave_wrapper|lab3_nios2_gen2_0_cpu_debug_slave_phy|ALT_INV_virtual_state_sdr~0_combout\ : std_logic;
 SIGNAL \v0|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \v1|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \v2|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \u0|nios2_gen2_0|cpu|ALT_INV_W_alu_result\ : std_logic_vector(3 DOWNTO 3);
-SIGNAL \u0|rst_controller|ALT_INV_r_early_rst~q\ : std_logic;
-SIGNAL \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ALT_INV_ociram_wr_en~1_combout\ : std_logic;
-SIGNAL \u0|nios2_gen2_0|cpu|ALT_INV_av_ld_rshift8~1_combout\ : std_logic;
 SIGNAL \ALT_INV_altera_internal_jtag~TCKUTAPclkctrl_outclk\ : std_logic;
 SIGNAL \u0|rst_controller|ALT_INV_r_sync_rst~clkctrl_outclk\ : std_logic;
 SIGNAL \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|instrumentation_fabric|alt_sld_fab|sldfabric|jtag_hub_gen:real_sld_jtag_hub|shadow_jsm|ALT_INV_state\ : std_logic_vector(4 DOWNTO 3);
@@ -3707,14 +3707,14 @@ gnd & gnd & gnd & gnd & gnd & \u0|nios2_gen2_0|cpu|d_writedata\(7) & \u0|nios2_g
 
 \clk~inputclkctrl_INCLK_bus\ <= (vcc & vcc & vcc & \clk~input_o\);
 \u0|nios2_gen2_0|cpu|ALT_INV_D_iw\(2) <= NOT \u0|nios2_gen2_0|cpu|D_iw\(2);
+\u0|nios2_gen2_0|cpu|ALT_INV_av_ld_rshift8~1_combout\ <= NOT \u0|nios2_gen2_0|cpu|av_ld_rshift8~1_combout\;
+\u0|rst_controller|ALT_INV_r_early_rst~q\ <= NOT \u0|rst_controller|r_early_rst~q\;
+\u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ALT_INV_ociram_wr_en~1_combout\ <= NOT \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ociram_wr_en~1_combout\;
 \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_debug_slave_wrapper|lab3_nios2_gen2_0_cpu_debug_slave_phy|ALT_INV_virtual_state_sdr~0_combout\ <= NOT \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_debug_slave_wrapper|lab3_nios2_gen2_0_cpu_debug_slave_phy|virtual_state_sdr~0_combout\;
 \v0|ALT_INV_Mux0~0_combout\ <= NOT \v0|Mux0~0_combout\;
 \v1|ALT_INV_Mux0~0_combout\ <= NOT \v1|Mux0~0_combout\;
 \v2|ALT_INV_Mux0~0_combout\ <= NOT \v2|Mux0~0_combout\;
 \u0|nios2_gen2_0|cpu|ALT_INV_W_alu_result\(3) <= NOT \u0|nios2_gen2_0|cpu|W_alu_result\(3);
-\u0|rst_controller|ALT_INV_r_early_rst~q\ <= NOT \u0|rst_controller|r_early_rst~q\;
-\u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ALT_INV_ociram_wr_en~1_combout\ <= NOT \u0|nios2_gen2_0|cpu|the_lab3_nios2_gen2_0_cpu_nios2_oci|the_lab3_nios2_gen2_0_cpu_nios2_ocimem|ociram_wr_en~1_combout\;
-\u0|nios2_gen2_0|cpu|ALT_INV_av_ld_rshift8~1_combout\ <= NOT \u0|nios2_gen2_0|cpu|av_ld_rshift8~1_combout\;
 \ALT_INV_altera_internal_jtag~TCKUTAPclkctrl_outclk\ <= NOT \altera_internal_jtag~TCKUTAPclkctrl_outclk\;
 \u0|rst_controller|ALT_INV_r_sync_rst~clkctrl_outclk\ <= NOT \u0|rst_controller|r_sync_rst~clkctrl_outclk\;
 \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|instrumentation_fabric|alt_sld_fab|sldfabric|jtag_hub_gen:real_sld_jtag_hub|shadow_jsm|ALT_INV_state\(3) <= NOT \auto_hub|instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|instrumentation_fabric|alt_sld_fab|sldfabric|jtag_hub_gen:real_sld_jtag_hub|shadow_jsm|state\(3);
