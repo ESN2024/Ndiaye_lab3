@@ -52,9 +52,9 @@ begin
             opencores_i2c_0_export_0_scl_pad_io => opencores_i2c_0_export_0_scl_pad_io, --  opencores_i2c_0_export_0.scl_pad_io
             opencores_i2c_0_export_0_sda_pad_io => opencores_i2c_0_export_0_sda_pad_io, --                          .sda_pad_io
             bouton_export                       => bouton,                       --                    bouton.export
-            pio_3_external_connection_export    => data1,    -- pio_3_external_connection.export
+            pio_3_external_connection_export    => data3,    -- pio_3_external_connection.export
             pio_2_external_connection_export    => data2,    -- pio_2_external_connection.export
-            pio_1_external_connection_export    => data3     -- pio_1_external_connection.export
+            pio_1_external_connection_export    => data1     -- pio_1_external_connection.export
         );
 		  
 	v0: component bin_to_7_seg port map(data1,seg1);

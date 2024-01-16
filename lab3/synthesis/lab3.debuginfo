@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lab3" kind="system" version="18.1" fabric="QSYS">
- <!-- Format version 18.1 646 (Future versions may contain additional information.) -->
- <!-- 2024.01.16.10:33:06 -->
+ <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
+ <!-- 2024.01.16.13:27:55 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -13,7 +13,7 @@
  </parameter>
  <parameter name="device">
   <type>java.lang.String</type>
-  <value>10M08DCV81C7G</value>
+  <value>10M50DAF484C7G</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1705397567</value>
+  <value>1705408046</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -3073,7 +3073,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>10M08DCV81C7G</value>
+   <value>10M50DAF484C7G</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9155,19 +9155,19 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.LOAD_VALUE</name>
-   <value>24999999</value>
+   <value>99999999</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MULT</name>
-   <value>0.001</value>
+   <value>1.0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.PERIOD</name>
-   <value>500</value>
+   <value>2</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.PERIOD_UNITS</name>
-   <value>ms</value>
+   <value>s</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_OUTPUT</name>
@@ -9179,7 +9179,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TICKS_PER_SEC</name>
-   <value>2</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMEOUT_PULSE_OUTPUT</name>
@@ -9231,7 +9231,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="period">
    <type>java.lang.String</type>
-   <value>500</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9239,7 +9239,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="periodUnits">
    <type>java.lang.String</type>
-   <value>MSEC</value>
+   <value>SEC</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9297,7 +9297,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="periodUnitsString">
    <type>java.lang.String</type>
-   <value>ms</value>
+   <value>s</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9305,7 +9305,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="valueInSecond">
    <type>double</type>
-   <value>0.001</value>
+   <value>1.0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9313,7 +9313,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="loadValue">
    <type>java.lang.String</type>
-   <value>24999999</value>
+   <value>99999999</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9321,7 +9321,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="mult">
    <type>double</type>
-   <value>0.001</value>
+   <value>1.0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9329,7 +9329,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="ticksPerSec">
    <type>double</type>
-   <value>2.0</value>
+   <value>0.0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10065,7 +10065,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>10M08DCV81C7G</value>
+   <value>10M50DAF484C7G</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -16712,6 +16712,6 @@ parameters are a RESULT of the module parameters. -->
   <displayName>Reset Connection</displayName>
   <version>18.1</version>
  </plugin>
- <reportVersion>18.1 646</reportVersion>
- <uniqueIdentifier>0A00270000080000018D119DC4D2</uniqueIdentifier>
+ <reportVersion>18.1 625</reportVersion>
+ <uniqueIdentifier>38FC98E5F9290000018D123DB327</uniqueIdentifier>
 </EnsembleReport>
