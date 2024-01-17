@@ -30,26 +30,18 @@ Lors de l'utilisation normale de l'accéléromètre, soustrayez l'offset
 initial des mesures d'accélération pour compenser l'effet de la gravité.
 
 Top
-x offset = 0xfffx
-y offset = 0xfff0
-z offset = 0xdx
+x_0 = 0xf8  
+y_0 = 0xef  
+z_0 = 0xd9
 
-Resultat attendu
+
+
+Resultat attendu pour top
 XOUT = 0g
-YOUT = 0g
+YOUT = 0g	
 ZOUT = 1g
 
-Resultat obtenu
-x data corrected =0xfffc
-y data corrected =0xfffb
-z data corrected =0x41
-
-Bot
-x offset = 0xfff8
-y offset = 0xfff0
-z offset = 0xfeex
-
-Resultat attendu
+Resultat attendu pour bot
 XOUT = 0g
 YOUT = 0g
 ZOUT = -1g
@@ -74,23 +66,24 @@ ZOUT = -1g
 #define Z_Offset_add 0x20
 
 //A calculer à la main
-#define x_offset 0x03
-#define y_offset 0x04
-#define z_offset 0xd9
+#define x_offset 0x02
+#define y_offset 0x03
+#define z_offset 0xCA
 
 #define SCL_speed 400000
 
-volatile __uint8_t u=0,d=0,c=0;
+volatile __uint8_t u=0,d=0,c=0,m=0,sign=1;
 
-volatile __uint16_t cnt=990;
+volatile __uint16_t cnt=1023;//nombre à afficher
 
-volatile alt_u32 x_data=0;
-volatile alt_u32 y_data=0;
-volatile alt_u32 z_data=0;
+volatile __int32_t x_data=0;
+volatile __int32_t y_data=0;
+volatile __int32_t z_data=0;
 
 
 
-alt_u32 extracted_data(alt_u32 id);
+
+__int32_t extracted_data(alt_u32 id);
 void send_offset(alt_u32 id,alt_u32 data);
 void irq_timer();
 static void irq_button(void * context, alt_u32 id);
@@ -106,6 +99,28 @@ int main(void)
 	
 	// Init I2C
 	I2C_init(OPENCORES_I2C_0_BASE,TIMER_0_FREQ,SCL_speed);
+
+	//Full resolution
+	/*alt_printf("%x\n\r",extracted_data(0x31));
+
+	I2C_start(OPENCORES_I2C_0_BASE,I2C_add , 0);
+	
+	I2C_write(OPENCORES_I2C_0_BASE,0x31, 0);
+
+	I2C_write(OPENCORES_I2C_0_BASE,extracted_data(0x31) | 0x08, 1);
+
+	alt_printf("%x\n\r",extracted_data(0x31));*/
+
+	// Reset offset
+	send_offset(X_Offset_add,0);
+	send_offset(Y_Offset_add,0);
+	send_offset(Z_Offset_add,0);
+
+	// Send offset
+	send_offset(X_Offset_add,x_offset);
+	send_offset(Y_Offset_add,y_offset);
+	send_offset(Z_Offset_add,z_offset);
+	
 	
 	// Register IRQ
 	alt_irq_register(TIMER_0_IRQ,NULL,irq_timer);
@@ -117,7 +132,7 @@ int main(void)
 }
 
 
-alt_u32 extracted_data(alt_u32 id)
+__int32_t extracted_data(alt_u32 id)
 {
 	//write mode
 	I2C_start(OPENCORES_I2C_0_BASE,I2C_add , 0);
@@ -143,18 +158,28 @@ void send_offset(alt_u32 id,alt_u32 data)
 
 void irq_timer()
 {
-	send_offset(X_Offset_add,x_offset);
+
 	x_data= extracted_data(X_add_0);
-	x_data = x_data + (extracted_data(X_add_1)<<8);
+	x_data = x_data | (extracted_data(X_add_1)<<8);
 
-	send_offset(Y_Offset_add,y_offset);
 	y_data= extracted_data(Y_add_0);
-	y_data = y_data + (extracted_data(Y_add_1)<<8);
+	y_data = y_data | (extracted_data(Y_add_1)<<8);
 
-	send_offset(Z_Offset_add,z_offset+1);
 	z_data= extracted_data(Z_add_0);
-	z_data = z_data + (extracted_data(Z_add_1)<<8);
+	z_data = z_data | (extracted_data(Z_add_1)<<8);
+
+	// Complément à deux
+	/*
+	if(x_data & 0x8000) x_data= -(0xFFFF -x_data +1);
+	if(y_data & 0x8000) y_data= -(0xFFFF -y_data +1);
+	if(z_data & 0x8000) z_data= -(0xFFFF -z_data +1);
+
+	x_data=(__int16_t)(x_data*3.9);
+	y_data=(__int16_t)(y_data*3.9);
+	z_data=(__int16_t)(z_data*3.9);
 	
+	*/
+
 
 	alt_printf("x data corrected =%x\n\r",x_data );
 	alt_printf("y data corrected =%x\n\r",y_data );
@@ -166,13 +191,16 @@ void irq_timer()
 
 static void irq_button(void * context, alt_u32 id)
 {
-	c=cnt/100;
+	m=cnt/1000;
+	c=(cnt%1000)/100;
 	d=(cnt%100)/10;
 	u=cnt%10;
 	
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_1_BASE,u);//seg1
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_2_BASE,d);//seg2 
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_3_BASE,c);//seg3
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_4_BASE,m);//seg4
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_5_BASE,sign);//seg5 
 	
     IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_0_BASE, 0x01);
 }

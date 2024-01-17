@@ -181,6 +181,10 @@
    type="VHDL"
    library="timer_0" />
  <file
+   path="simulation/submodules/lab3_pio_5.vhd"
+   type="VHDL"
+   library="pio_5" />
+ <file
    path="simulation/submodules/lab3_pio_2.vhd"
    type="VHDL"
    library="pio_2" />

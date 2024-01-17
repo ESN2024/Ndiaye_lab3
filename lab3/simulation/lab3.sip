@@ -31,6 +31,7 @@ set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/altera_merlin_slave_translator.sv"]
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/altera_merlin_master_translator.sv"]
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/lab3_timer_0.vhd"]
+set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/lab3_pio_5.vhd"]
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/lab3_pio_2.vhd"]
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/lab3_pio_1.vhd"]
 set_global_assignment -library "lib_lab3" -name MISC_FILE [file join $::quartus(sip_path) "submodules/lab3_pio_0.vhd"]

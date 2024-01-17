@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 18.1 625 win32 2024.01.16.17:10:57
+# ACDS 18.1 625 win32 2024.01.17.13:48:02
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -106,7 +106,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 18.1 625 win32 2024.01.16.17:10:57
+# ACDS 18.1 625 win32 2024.01.17.13:48:02
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="lab3"
@@ -169,6 +169,7 @@ mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/irq_mapper/
 mkdir -p ./libraries/mm_interconnect_0/
 mkdir -p ./libraries/timer_0/
+mkdir -p ./libraries/pio_5/
 mkdir -p ./libraries/pio_2/
 mkdir -p ./libraries/pio_1/
 mkdir -p ./libraries/pio_0/
@@ -265,6 +266,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/lab3_irq_mapper.sv"                                          -work irq_mapper                                   -cdslib ./cds_libs/irq_mapper.cds.lib                                  
   ncvlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/lab3_mm_interconnect_0.v"                                    -work mm_interconnect_0                            -cdslib ./cds_libs/mm_interconnect_0.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/submodules/lab3_timer_0.vhd"                                            -work timer_0                                      -cdslib ./cds_libs/timer_0.cds.lib                                     
+  ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/submodules/lab3_pio_5.vhd"                                              -work pio_5                                        -cdslib ./cds_libs/pio_5.cds.lib                                       
   ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/submodules/lab3_pio_2.vhd"                                              -work pio_2                                        -cdslib ./cds_libs/pio_2.cds.lib                                       
   ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/submodules/lab3_pio_1.vhd"                                              -work pio_1                                        -cdslib ./cds_libs/pio_1.cds.lib                                       
   ncvhdl -v93 $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS   "$QSYS_SIMDIR/submodules/lab3_pio_0.vhd"                                              -work pio_0                                        -cdslib ./cds_libs/pio_0.cds.lib                                       

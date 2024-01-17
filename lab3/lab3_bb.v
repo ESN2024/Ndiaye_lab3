@@ -7,6 +7,8 @@ module lab3 (
 	pio_1_external_connection_export,
 	pio_2_external_connection_export,
 	pio_3_external_connection_export,
+	pio_4_external_connection_export,
+	pio_5_external_connection_export,
 	reset_reset_n);	
 
 	input		bouton_export;
@@ -16,5 +18,7 @@ module lab3 (
 	output	[3:0]	pio_1_external_connection_export;
 	output	[3:0]	pio_2_external_connection_export;
 	output	[3:0]	pio_3_external_connection_export;
+	output	[3:0]	pio_4_external_connection_export;
+	output		pio_5_external_connection_export;
 	input		reset_reset_n;
 endmodule

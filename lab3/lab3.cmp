@@ -7,6 +7,8 @@
 			pio_1_external_connection_export    : out   std_logic_vector(3 downto 0);        -- export
 			pio_2_external_connection_export    : out   std_logic_vector(3 downto 0);        -- export
 			pio_3_external_connection_export    : out   std_logic_vector(3 downto 0);        -- export
+			pio_4_external_connection_export    : out   std_logic_vector(3 downto 0);        -- export
+			pio_5_external_connection_export    : out   std_logic;                           -- export
 			reset_reset_n                       : in    std_logic                    := 'X'  -- reset_n
 		);
 	end component lab3;
