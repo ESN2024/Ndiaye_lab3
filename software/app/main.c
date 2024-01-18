@@ -13,14 +13,6 @@
 
 /*
 
-Output Change in X-Axis 0.20 2.10 g
-Output Change in Y-Axis −2.10 −0.20 g
-Output Change in Z-Axis 0.30 3.40 g
-
-*/
-
-/*
-
 Placez la carte dans une position initiale bien définie.
 
 Enregistrez les valeurs de l'accélération dans cette position. 
@@ -34,20 +26,12 @@ x_0 = 0xf8
 y_0 = 0xef  
 z_0 = 0xd9
 
-
-
 Resultat attendu pour top
 XOUT = 0g
 YOUT = 0g	
 ZOUT = 1g
 
-Resultat attendu pour bot
-XOUT = 0g
-YOUT = 0g
-ZOUT = -1g
-
 0x7F = 2 g ==> 0x3F ~= 1g
-
 
 */
 
@@ -66,9 +50,9 @@ ZOUT = -1g
 #define Z_Offset_add 0x20
 
 //A calculer à la main
-#define x_offset 0x02
-#define y_offset 0x03
-#define z_offset 0xCA
+#define x_offset 0x01
+#define y_offset 0x04
+#define z_offset 0x3D
 
 #define SCL_speed 400000
 
@@ -76,9 +60,9 @@ volatile __uint8_t u=0,d=0,c=0,m=0,sign=1;
 
 volatile __uint16_t cnt=1023;//nombre à afficher
 
-volatile __int32_t x_data=0;
-volatile __int32_t y_data=0;
-volatile __int32_t z_data=0;
+volatile alt_u32 x_data=0;
+volatile alt_u32 y_data=0;
+volatile alt_u32 z_data=0;
 
 
 
@@ -101,7 +85,8 @@ int main(void)
 	I2C_init(OPENCORES_I2C_0_BASE,TIMER_0_FREQ,SCL_speed);
 
 	//Full resolution
-	/*alt_printf("%x\n\r",extracted_data(0x31));
+	/*
+	alt_printf("%x\n\r",extracted_data(0x31));
 
 	I2C_start(OPENCORES_I2C_0_BASE,I2C_add , 0);
 	
@@ -109,7 +94,8 @@ int main(void)
 
 	I2C_write(OPENCORES_I2C_0_BASE,extracted_data(0x31) | 0x08, 1);
 
-	alt_printf("%x\n\r",extracted_data(0x31));*/
+	alt_printf("%x\n\r",extracted_data(0x31));
+	*/
 
 	// Reset offset
 	send_offset(X_Offset_add,0);
@@ -170,16 +156,19 @@ void irq_timer()
 
 	// Complément à deux
 	/*
+	
 	if(x_data & 0x8000) x_data= -(0xFFFF -x_data +1);
 	if(y_data & 0x8000) y_data= -(0xFFFF -y_data +1);
 	if(z_data & 0x8000) z_data= -(0xFFFF -z_data +1);
 
-	x_data=(__int16_t)(x_data*3.9);
-	y_data=(__int16_t)(y_data*3.9);
-	z_data=(__int16_t)(z_data*3.9);
-	
+	x_data=(x_data*3.9);
+	y_data=(y_data*3.9);
+	z_data=(z_data*3.9);
+
 	*/
 
+	
+	
 
 	alt_printf("x data corrected =%x\n\r",x_data );
 	alt_printf("y data corrected =%x\n\r",y_data );
