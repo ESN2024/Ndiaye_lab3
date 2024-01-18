@@ -1,12 +1,12 @@
-# system info lab3 on 2024.01.17.13:48:01
+# system info lab3 on 2024.01.18.15:00:38
 system_info:
 name,value
 DEVICE,10M50DAF484C7G
 DEVICE_FAMILY,MAX 10
-GENERATION_ID,1705495650
+GENERATION_ID,1705586403
 #
 #
-# Files generated for lab3 on 2024.01.17.13:48:01
+# Files generated for lab3 on 2024.01.18.15:00:38
 files:
 filepath,kind,attributes,module,is_top
 simulation/lab3.vhd,VHDL,,lab3,true

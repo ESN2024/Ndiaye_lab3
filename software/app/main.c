@@ -31,7 +31,12 @@ XOUT = 0g
 YOUT = 0g	
 ZOUT = 1g
 
-0x7F = 2 g ==> 0x3F ~= 1g
+Scale Factor at XOUT, YOUT, ZOUT All g-ranges, full resolution 
+min: 3.5 type: 3.9 max: 4.3 mg/LSB 
+
+The OFSX, OFSY, and OFSZ registers are each eight bits and
+offer user-set offset adjustments in twos complement format
+with a scale factor of 15.6 mg/LSB
 
 */
 
@@ -50,15 +55,18 @@ ZOUT = 1g
 #define Z_Offset_add 0x20
 
 //A calculer à la main
-#define x_offset 0x01
-#define y_offset 0x04
+#define x_offset 0x06
+#define y_offset 0x06
 #define z_offset 0x3D
+
+#define scale_f_out 3.9
+#define scale_f_off 15.6
 
 #define SCL_speed 400000
 
-volatile __uint8_t u=0,d=0,c=0,m=0,sign=1;
+volatile __uint8_t seg1[3]={0,0,0},seg2[3]={0,0,0},seg3[3]={0,0,0},seg4[3]={0,0,0},sign[3]={1,1,1},cnt=0;
 
-volatile __uint16_t cnt=1023;//nombre à afficher
+volatile __uint16_t data=0;//nombre à afficher
 
 volatile alt_u32 x_data=0;
 volatile alt_u32 y_data=0;
@@ -67,7 +75,8 @@ volatile alt_u32 z_data=0;
 
 
 
-__int32_t extracted_data(alt_u32 id);
+int extracted_data(alt_u32 id);
+void seg_afficher();
 void send_offset(alt_u32 id,alt_u32 data);
 void irq_timer();
 static void irq_button(void * context, alt_u32 id);
@@ -118,7 +127,7 @@ int main(void)
 }
 
 
-__int32_t extracted_data(alt_u32 id)
+int extracted_data(alt_u32 id)
 {
 	//write mode
 	I2C_start(OPENCORES_I2C_0_BASE,I2C_add , 0);
@@ -142,6 +151,54 @@ void send_offset(alt_u32 id,alt_u32 data)
 	I2C_write(OPENCORES_I2C_0_BASE,data, 1);
 }
 
+void seg_afficher()
+{
+	if(x_data>=0) 
+	{
+		sign[0]=1;
+	}
+	else 
+	{
+		sign[0]=0;
+		x_data=-x_data;
+	}
+
+	if(y_data>=0) 
+	{
+		sign[1]=1;
+	}
+	else 
+	{
+		sign[1]=0;
+		y_data=-y_data;
+	}
+
+	if(z_data>=0) 
+	{
+		sign[2]=1;
+	}
+	else 
+	{
+		sign[2]=0;
+		z_data=-z_data;
+	}
+	
+	seg4[0]=x_data/10000;
+	seg3[0]=(x_data%10000)/1000;
+	seg2[0]=(x_data%1000)/100;
+	seg1[0]=(x_data%100)/10;
+
+	seg4[1]=y_data/10000;
+	seg3[1]=(y_data%10000)/1000;
+	seg2[1]=(y_data%1000)/100;
+	seg1[1]=(y_data%100)/10;
+
+	seg4[2]=z_data/10000;
+	seg3[2]=(z_data%10000)/1000;
+	seg2[2]=(z_data%1000)/100;
+	seg1[2]=(z_data%100)/10;
+}
+
 void irq_timer()
 {
 
@@ -155,24 +212,31 @@ void irq_timer()
 	z_data = z_data | (extracted_data(Z_add_1)<<8);
 
 	// Complément à deux
-	/*
+	
 	
 	if(x_data & 0x8000) x_data= -(0xFFFF -x_data +1);
 	if(y_data & 0x8000) y_data= -(0xFFFF -y_data +1);
 	if(z_data & 0x8000) z_data= -(0xFFFF -z_data +1);
 
-	x_data=(x_data*3.9);
-	y_data=(y_data*3.9);
-	z_data=(z_data*3.9);
+	x_data=(int)(x_data*scale_f_out);
+	y_data=(int)(y_data*scale_f_out);
+	z_data=(int)(z_data*scale_f_out);
 
-	*/
+	if((cnt%3)==0) alt_printf("x s'affiche\n\r");
+	else if((cnt%3)==1) alt_printf("y s'affiche\n\r");
+	else alt_printf("z s'affiche\n\r");
 
+	alt_printf("x: %x\t",x_data );
+	alt_printf("y: %x\t",y_data );
+	alt_printf("z: %x\n\n\r",z_data );
+
+	seg_afficher();
 	
-	
-
-	alt_printf("x data corrected =%x\n\r",x_data );
-	alt_printf("y data corrected =%x\n\r",y_data );
-	alt_printf("z data corrected =%x\n\n\r",z_data );
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_1_BASE,seg1[cnt%3]);//seg1
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_2_BASE,seg2[cnt%3]);//seg2 
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_3_BASE,seg3[cnt%3]);//seg3
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_4_BASE,seg4[cnt%3]);//seg4
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_5_BASE,sign[cnt%3]);//seg5 
 
 	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE,0x01);
 	
@@ -180,16 +244,7 @@ void irq_timer()
 
 static void irq_button(void * context, alt_u32 id)
 {
-	m=cnt/1000;
-	c=(cnt%1000)/100;
-	d=(cnt%100)/10;
-	u=cnt%10;
-	
-	IOWR_ALTERA_AVALON_PIO_DATA(PIO_1_BASE,u);//seg1
-	IOWR_ALTERA_AVALON_PIO_DATA(PIO_2_BASE,d);//seg2 
-	IOWR_ALTERA_AVALON_PIO_DATA(PIO_3_BASE,c);//seg3
-	IOWR_ALTERA_AVALON_PIO_DATA(PIO_4_BASE,m);//seg4
-	IOWR_ALTERA_AVALON_PIO_DATA(PIO_5_BASE,sign);//seg5 
-	
+	cnt++;
+
     IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_0_BASE, 0x01);
 }

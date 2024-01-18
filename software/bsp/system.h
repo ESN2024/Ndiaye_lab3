@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'lab3'
  * SOPC Builder design path: ../../lab3.sopcinfo
  *
- * Generated: Wed Jan 17 13:55:16 CET 2024
+ * Generated: Thu Jan 18 15:03:51 CET 2024
  */
 
 /*
@@ -424,15 +424,15 @@
 #define TIMER_0_FREQ 50000000
 #define TIMER_0_IRQ 3
 #define TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define TIMER_0_LOAD_VALUE 99999999
+#define TIMER_0_LOAD_VALUE 49999999
 #define TIMER_0_MULT 1.0
 #define TIMER_0_NAME "/dev/timer_0"
-#define TIMER_0_PERIOD 2
+#define TIMER_0_PERIOD 1
 #define TIMER_0_PERIOD_UNITS "s"
 #define TIMER_0_RESET_OUTPUT 0
 #define TIMER_0_SNAPSHOT 1
 #define TIMER_0_SPAN 32
-#define TIMER_0_TICKS_PER_SEC 0
+#define TIMER_0_TICKS_PER_SEC 1
 #define TIMER_0_TIMEOUT_PULSE_OUTPUT 0
 #define TIMER_0_TYPE "altera_avalon_timer"
 

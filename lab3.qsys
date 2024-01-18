@@ -579,7 +579,7 @@
   <parameter name="alwaysRun" value="false" />
   <parameter name="counterSize" value="32" />
   <parameter name="fixedPeriod" value="false" />
-  <parameter name="period" value="2" />
+  <parameter name="period" value="1" />
   <parameter name="periodUnits" value="SEC" />
   <parameter name="resetOutput" value="false" />
   <parameter name="snapshot" value="true" />
