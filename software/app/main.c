@@ -57,7 +57,7 @@ with a scale factor of 15.6 mg/LSB
 //A calculer à la main
 #define x_offset 0x06
 #define y_offset 0x06
-#define z_offset 0x3D
+#define z_offset 0x0C
 
 #define scale_f_out 3.9
 #define scale_f_off 15.6
@@ -66,13 +66,11 @@ with a scale factor of 15.6 mg/LSB
 
 volatile __uint8_t seg1[3]={0,0,0},seg2[3]={0,0,0},seg3[3]={0,0,0},seg4[3]={0,0,0},sign[3]={1,1,1},cnt=0;
 
-volatile __uint16_t data=0;//nombre à afficher
+volatile int x_data=0;
+volatile int y_data=0;
+volatile int z_data=0;
 
-volatile alt_u32 x_data=0;
-volatile alt_u32 y_data=0;
-volatile alt_u32 z_data=0;
-
-
+volatile int data[3]={0,0,0};//nombre à afficher
 
 
 int extracted_data(alt_u32 id);
@@ -151,54 +149,6 @@ void send_offset(alt_u32 id,alt_u32 data)
 	I2C_write(OPENCORES_I2C_0_BASE,data, 1);
 }
 
-void seg_afficher()
-{
-	if(x_data>=0) 
-	{
-		sign[0]=1;
-	}
-	else 
-	{
-		sign[0]=0;
-		x_data=-x_data;
-	}
-
-	if(y_data>=0) 
-	{
-		sign[1]=1;
-	}
-	else 
-	{
-		sign[1]=0;
-		y_data=-y_data;
-	}
-
-	if(z_data>=0) 
-	{
-		sign[2]=1;
-	}
-	else 
-	{
-		sign[2]=0;
-		z_data=-z_data;
-	}
-	
-	seg4[0]=x_data/10000;
-	seg3[0]=(x_data%10000)/1000;
-	seg2[0]=(x_data%1000)/100;
-	seg1[0]=(x_data%100)/10;
-
-	seg4[1]=y_data/10000;
-	seg3[1]=(y_data%10000)/1000;
-	seg2[1]=(y_data%1000)/100;
-	seg1[1]=(y_data%100)/10;
-
-	seg4[2]=z_data/10000;
-	seg3[2]=(z_data%10000)/1000;
-	seg2[2]=(z_data%1000)/100;
-	seg1[2]=(z_data%100)/10;
-}
-
 void irq_timer()
 {
 
@@ -213,23 +163,24 @@ void irq_timer()
 
 	// Complément à deux
 	
-	
 	if(x_data & 0x8000) x_data= -(0xFFFF -x_data +1);
 	if(y_data & 0x8000) y_data= -(0xFFFF -y_data +1);
 	if(z_data & 0x8000) z_data= -(0xFFFF -z_data +1);
-
+	
 	x_data=(int)(x_data*scale_f_out);
 	y_data=(int)(y_data*scale_f_out);
 	z_data=(int)(z_data*scale_f_out);
 
-	if((cnt%3)==0) alt_printf("x s'affiche\n\r");
-	else if((cnt%3)==1) alt_printf("y s'affiche\n\r");
-	else alt_printf("z s'affiche\n\r");
+	if((cnt%3)==0) alt_printf("x s'affiche\n\n\r");
+	else if((cnt%3)==1) alt_printf("y s'affiche\n\n\r");
+	else alt_printf("z s'affiche\n\n\r");
+/*
 
-	alt_printf("x: %x\t",x_data );
-	alt_printf("y: %x\t",y_data );
-	alt_printf("z: %x\n\n\r",z_data );
+	alt_printf("x: %x\t",(alt_u32)(x_data) );
+	alt_printf("y: %x\t",(alt_u32)(y_data) );
+	alt_printf("z: %x\n\n\r",(alt_u32)(z_data) );
 
+*/
 	seg_afficher();
 	
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_1_BASE,seg1[cnt%3]);//seg1
@@ -247,4 +198,28 @@ static void irq_button(void * context, alt_u32 id)
 	cnt++;
 
     IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PIO_0_BASE, 0x01);
+}
+
+
+void seg_afficher()
+{
+	data[0]=x_data;
+	data[1]=y_data;
+	data[2]=z_data;
+
+	if(data[cnt%3]>=0) 
+	{
+		sign[cnt%3]=1;
+	}
+	else 
+	{
+		sign[cnt%3]=0;
+		data[cnt%3]=-data[cnt%3];
+	}
+	
+	seg4[cnt%3]=data[cnt%3]/10000;
+	seg3[cnt%3]=(data[cnt%3]%10000)/1000;
+	seg2[cnt%3]=(data[cnt%3]%1000)/100;
+	seg1[cnt%3]=(data[cnt%3]%100)/10;
+
 }
