@@ -64,7 +64,9 @@ lab3_vhd.vhd : Ce fichier définit les entrées et les sorties avec tous leurs b
 ![image](https://github.com/ESN2024/Ndiaye_lab3/assets/153745637/6ef734f2-3216-47ab-8909-caea98212a0f)
 
 
-Flux logiciel du NIOS II Ouvrons un terminal NIOS II et générons le BSP en lien avec les spécifications de la carte DE-10, en ce mettant de préférence dans le répertoire où se trouve nos fichiers vhd et qsys :
+Flux logiciel du NIOS II
+
+Ouvrons un terminal NIOS II et générons le BSP en lien avec les spécifications de la carte DE-10, en ce mettant de préférence dans le répertoire où se trouve nos fichiers vhd et qsys :
 
 ![image](https://github.com/ESN2024/Ndiaye_lab3/assets/153745637/f1aa3041-8481-43da-8983-4d273195ab90)
 
