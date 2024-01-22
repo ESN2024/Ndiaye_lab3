@@ -110,5 +110,5 @@ https://github.com/ESN2024/Ndiaye_lab3/assets/153745637/bb230438-3633-4ad8-849c-
 
 # IV Conclusion
 
-Ce TP a été synthèse de tout ce que l'on a appris sur les 2 précédents permettant de solidifier ces connaissances tout apportant de nouvelles connaissances et compétences
+Ce TP a été synthèse de tout ce que l'on a appris sur les 2 précédents permettant de solidifier ces connaissances et compétences tout apportant de nouvelles
 dans la tache qui fut de récupérer et calibrer les données de l'accélérometre de notre carte.
